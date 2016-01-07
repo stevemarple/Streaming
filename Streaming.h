@@ -28,6 +28,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #define STREAMING_LIBRARY_VERSION 5
 
+
+#ifdef __GNUC__
+#  define UNUSED(x) UNUSED_ ## x __attribute__((__unused__))
+#else
+#  define UNUSED(x) UNUSED_ ## x
+#endif
+
 // Generic template
 template<class T> 
 inline Print &operator <<(Print &stream, T arg) 
@@ -99,7 +106,7 @@ inline Print &operator <<(Print &obj, const _FLOAT &arg)
 
 enum _EndLineCode { endl };
 
-inline Print &operator <<(Print &obj, _EndLineCode arg) 
+inline Print &operator <<(Print &obj, _EndLineCode UNUSED(arg)) 
 { obj.println(); return obj; }
 
 #endif
